@@ -37,7 +37,6 @@ class App extends Component {
 
     const data = new FormData();
     data.append('file', this.uploadInput.files[0]);
-    data.append('filename', this.fileName.value);
 
     fetch('http://localhost:8000/upload', {
       method: 'POST',
@@ -66,9 +65,6 @@ class App extends Component {
                   <form onSubmit={this.handleUploadImage}>
                     <div>
                       <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
-                    </div>
-                    <div>
-                      <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="File Name" />
                     </div>
                     <br />
                     <div>
