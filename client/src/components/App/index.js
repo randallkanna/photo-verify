@@ -48,7 +48,7 @@ class App extends Component {
     });
   }
 
-  // randall this is the rendered image
+  // this is the rendered image
   // <img src={this.state.imageURL} alt="img" />
 
   render() {
