@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 import './style.css';
+import {
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from 'reactstrap';
 
 class App extends Component {
   constructor(props) {
@@ -7,9 +19,17 @@ class App extends Component {
 
     this.state = {
       imageURL: '',
+      modal: false,
     };
 
+    this.toggle = this.toggle.bind(this);
     this.handleUploadImage = this.handleUploadImage.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
   }
 
   handleUploadImage(ev) {
@@ -29,24 +49,41 @@ class App extends Component {
     });
   }
 
+  // randall this is the rendered image
+  // <img src={this.state.imageURL} alt="img" />
+
   render() {
     return (
       <div>
-        <h2>Photo Upload</h2>
+      <Navbar color="dark" dark  expand="md">
+        <NavbarBrand href="/">Veritas</NavbarBrand>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <Button color="info" onClick={this.toggle}>+</Button>
+              <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.toggle}>Upload A Photo</ModalHeader>
+                <ModalBody>
+                  <form onSubmit={this.handleUploadImage}>
+                    <div>
+                      <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
+                    </div>
+                    <div>
+                      <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="File Name" />
+                    </div>
+                    <br />
+                    <div>
+                      <Button color="primary">Upload</Button>
+                      <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </div>
+                  </form>
+                </ModalBody>
+              </Modal>
+            </NavItem>
+          </Nav>
+      </Navbar>
 
-        <form onSubmit={this.handleUploadImage}>
-          <div>
-            <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
-          </div>
-          <div>
-            <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
-          </div>
-          <br />
-          <div>
-            <button>Upload</button>
-          </div>
-          <img src={this.state.imageURL} alt="img" />
-        </form>
+      <div></div>
+
       </div>
     );
   }
