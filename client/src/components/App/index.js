@@ -61,7 +61,7 @@ class App extends Component {
             <NavItem>
               <Button color="info" onClick={this.toggle}>+</Button>
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>Upload A Photo</ModalHeader>
+                <ModalHeader toggle={this.toggle}>Upload Photo</ModalHeader>
                 <ModalBody>
                   <form onSubmit={this.handleUploadImage}>
                     <div>
@@ -72,8 +72,7 @@ class App extends Component {
                     </div>
                     <br />
                     <div>
-                      <Button color="primary">Upload</Button>
-                      <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                      <Button color="info">Upload</Button>
                     </div>
                   </form>
                 </ModalBody>
