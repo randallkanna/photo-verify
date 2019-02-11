@@ -5,12 +5,10 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   Button,
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
 } from 'reactstrap';
 
 class App extends Component {
@@ -32,6 +30,18 @@ class App extends Component {
     });
   }
 
+  componentDidMount() {
+    this.getImages();
+  }
+
+  getImages() {
+    fetch('http://localhost:8000/photos', {
+      method: 'GET'
+    }).then((response) => {
+      debugger;
+    })
+  }
+
   handleUploadImage(ev) {
     ev.preventDefault();
 
@@ -47,8 +57,7 @@ class App extends Component {
       });
     });
   }
-
-  // this is the rendered image
+  
   // <img src={this.state.imageURL} alt="img" />
 
   render() {

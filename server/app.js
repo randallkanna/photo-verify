@@ -28,15 +28,43 @@ app.post('/upload', (req, res, next) => {
   console.log(req);
   let imageFile = req.files.file;
 
-  imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, function(err) {
+  imageFile.mv(`${__dirname}/public/images/${req.body.filename}.jpg`, function(err) {
     if (err) {
       return res.status(500).send(err);
     }
 
-    res.json({file: `public/${req.body.filename}.jpg`});
+    res.json({file: `public/images/${req.body.filename}.jpg`});
   });
-
 })
+
+app.get('/photos', (req, res, next) => {
+  let images = getImagesFromDirectory(path.join(__dirname, 'public/images'));
+
+  console.log(images)
+  res.render('index', { images: images })
+  // res.json('index', { images: images })
+  // res.status(200)
+  // res.status(200).json(images)
+   // res.sendFile(images);
+})
+
+function getImagesFromDirectory(directoryPath) {
+  let allImages = [];
+  var fs = require('fs');
+  let files = fs.readdirSync(directoryPath);
+
+  for (file of files) {
+    let fileLocation = path.join(directoryPath, file);
+
+    if (['.jpg', '.png'].indexOf(path.extname(fileLocation)) != -1) {
+      allImages.push('static/'+file); // push all .jpf and .png files to all images
+    }
+  }
+
+  console.log(allImages);
+
+  return allImages;
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
